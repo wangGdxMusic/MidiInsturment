@@ -16,10 +16,16 @@
  */
 package kw.mulitplay.game.midi.handler;
 
+import com.badlogic.gdx.Gdx;
+
+import java.io.IOException;
+
 import javax.sound.midi.Instrument;
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
 /**
@@ -37,9 +43,20 @@ public class MidiInstruments {
         if (!synthesizer.isOpen()) {
             synthesizer.open();
         }
+
+        try {
+            Soundbank soundbank = MidiSystem.getSoundbank(Gdx.files.internal("11.sf2").file());
+            synthesizer.loadAllInstruments(soundbank);
+        } catch (InvalidMidiDataException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Instrument[] orchestra = synthesizer.getAvailableInstruments();
         MidiChannel[] mChannels = synthesizer.getChannels();
         channel = mChannels[0];
+
         return orchestra;
     }
 
