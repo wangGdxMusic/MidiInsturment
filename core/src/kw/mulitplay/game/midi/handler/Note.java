@@ -27,7 +27,8 @@ public class Note {
     private final int key;
     private final long timestamp;
     private final long length;
-
+    //1-88
+    //22 - 110
     Note(int key, long timestamp, long length) {
         this.key = key;
         this.timestamp = timestamp;

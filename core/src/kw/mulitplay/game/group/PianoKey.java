@@ -22,6 +22,8 @@ import kw.mulitplay.game.AssetLoadFile;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.callback.CallBack;
 import kw.mulitplay.game.constant.Constant;
+import kw.mulitplay.game.midi.handler.MidiInstruments;
+
 public class PianoKey extends Group {
     private Sound sound;
     private Color oldColor;

@@ -1,5 +1,6 @@
 package kw.mulitplay.game.group;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,6 +18,7 @@ public class InsturmentItem extends Group {
         Label label = new Label(instrument.getName(),new Label.LabelStyle(){{
             font = AssetLoadFile.getBR40();
         }});
+        label.setColor(Color.BLACK);
         addActor(label);
         setSize(label.getPrefWidth(),label.getPrefHeight());
         addListener(new ClickListener(){
@@ -24,8 +26,9 @@ public class InsturmentItem extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Constant.instrument = instrument;
-                Constant.game.setScreen(new MainScreen());
+//                Constant.game.setScreen(new MainScreen());
 //                MidiInstruments.selectInstrument(instrument);
+                MidiInstruments.selectInstrument(Constant.instrument);
             }
         });
     }

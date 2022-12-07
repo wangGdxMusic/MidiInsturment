@@ -1,13 +1,18 @@
 package kw.mulitplay.game.screen;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
+
+import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiUnavailableException;
 
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.constant.LevelConfig;
+import kw.mulitplay.game.group.InsturmentItem;
 import kw.mulitplay.game.group.PianoView;
 import kw.mulitplay.game.midi.gamemode.ModeController;
 import kw.mulitplay.game.midi.handler.Channel;
@@ -39,8 +44,10 @@ public class DIMIDemoScreen extends BaseScreen {
         view.showPianoKey();
         stage.addActor(view);
         try {
-            MidiInstruments.getInstruments();
-            MidiInstruments.selectInstrument(Constant.instrument);
+            Instrument[] instruments = MidiInstruments.getInstruments();
+            if (Constant.instrument!=null) {
+                MidiInstruments.selectInstrument(Constant.instrument);
+            }
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }

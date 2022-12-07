@@ -15,7 +15,7 @@ public class ActorTimeLine {
     public ActorTimeLine(Note note, PianoView view, int resolution){
         this.note = note;
         this.startTime = note.getTimeStamp() * 60.0f / resolution / 120.0f*2;
-        this.endTime = (note.getTimeStamp()+note.getLength()/5)*60.0f / resolution / 120.0f*2;
+        this.endTime = (note.getTimeStamp()+note.getLength())*60.0f / resolution / 120.0f*2;
         this.view = view;
     }
 
@@ -30,6 +30,7 @@ public class ActorTimeLine {
 //            note.getLength())*60.0f / resolution / 120.0f*2
             if (endTime <= timeline) {
                 view.getHashMap().get((note.getKey())+"").finishTouchi();
+                MidiInstruments.noteOff(note.getKey());
                 status = 2;
             }
         }

@@ -16,7 +16,7 @@ public class Constant {
     public static Batch batch;
     public static float bgScale = 1;
     public static AssetManager assetManager;
-    public static float panelMoveSpeed = 60;
+    public static float panelMoveSpeed = 30;
 
     public static float speed = 0;
     public static Instrument instrument;

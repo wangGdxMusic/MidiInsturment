@@ -28,6 +28,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
+import kw.mulitplay.game.constant.Constant;
+
 /**
  *
  * @author david
@@ -43,20 +45,10 @@ public class MidiInstruments {
         if (!synthesizer.isOpen()) {
             synthesizer.open();
         }
-
-        try {
-            Soundbank soundbank = MidiSystem.getSoundbank(Gdx.files.internal("11.sf2").file());
-            synthesizer.loadAllInstruments(soundbank);
-        } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         Instrument[] orchestra = synthesizer.getAvailableInstruments();
         MidiChannel[] mChannels = synthesizer.getChannels();
         channel = mChannels[0];
-
+        Constant.instrument = orchestra[0];
         return orchestra;
     }
 
@@ -64,16 +56,22 @@ public class MidiInstruments {
         return getInstruments()[DEFAULT_INSTRUMENT];
     }
 
+    private static Instrument old = null;
     public static void selectInstrument(Instrument select) {
+
+        if (old != null){
+            synthesizer.unloadInstrument(old);
+        }
+        old = select;
         synthesizer.loadInstrument(select);
         channel.programChange(select.getPatch().getProgram());
     }
 
     public static void noteOn(int key) {
-        channel.noteOn(key, 100);
+        channel.noteOn(key+21, 100);
     }
 
     public static void noteOff(int key) {
-        channel.noteOff(key, 100);
+        channel.noteOff(key+21, 100);
     }
 }
