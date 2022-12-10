@@ -67,6 +67,10 @@ public class ActorTimeLine {
         return note;
     }
 
+    public float getStartTime() {
+        return startTime;
+    }
+
     @Override
     public String toString() {
         return "ActorTimeLine{" +

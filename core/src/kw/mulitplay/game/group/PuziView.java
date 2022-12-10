@@ -18,8 +18,12 @@ public class PuziView extends Group {
             Group group = null;
             int index = 0;
             int ii = 0;
+            float lastV = 0;
+            float lastVTemp = 0;
+
             for (ActorTimeLine note : notes) {
                 if (index % 10 == 0) {
+                    lastV = lastVTemp;
                     ii = 0;
                     group = new Group();
                     add(group);
@@ -27,7 +31,7 @@ public class PuziView extends Group {
                 }
                 index++;
                 ii ++;
-                group.setSize(Constant.width,200);
+                group.setSize(Constant.width/2,200);
                 Image im = note.getImage();
                 if (note.isUp()) {
                     im.setY(50);
@@ -36,8 +40,8 @@ public class PuziView extends Group {
                     im.setColor(Color.RED);
                 }
                 group.addActor(im);
-                im.setX(ii*100);
-
+                im.setX((note.getStartTime()-lastV)*200);
+                lastVTemp = note.getStartTime();
             }
         }};
         ScrollPane pane = new ScrollPane(panel,new ScrollPane.ScrollPaneStyle());

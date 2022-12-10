@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiUnavailableException;
@@ -78,6 +79,12 @@ public class DIMIDemoScreen extends BaseScreen {
                 actorTimeLines.add(new ActorTimeLine(note,view,resolution,note.getNum()));
             }
         }
+        actorTimeLines.sort(new Comparator<ActorTimeLine>() {
+            @Override
+            public int compare(ActorTimeLine o1, ActorTimeLine o2) {
+                return (int) (o1.getStartTime() - o2.getStartTime());
+            }
+        });
 
         Array<Note> array = new Array<>();
         for (Channel channel : channelArray) {

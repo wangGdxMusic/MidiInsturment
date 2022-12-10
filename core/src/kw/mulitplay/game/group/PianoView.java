@@ -18,7 +18,8 @@ import kw.mulitplay.game.constant.Constant;
 
 public class PianoView extends Group {
     private HashMap<String,PianoKey> hashMap;
-    private Label touchDownKey;
+    private Label touchDownKeyLeft;
+    private Label touchDownKeyRight;
     private ColorUtils utils;
 
     public PianoView(){
@@ -83,13 +84,17 @@ public class PianoView extends Group {
             @Override
             public void callBack(Object o) {
                 setTouchLabel((String)o);
-                touchDownKey.setText((String)o);
-                touchDownKey.setPosition(Constant.width/2,Constant.height-50, Align.center);
+                touchDownKeyLeft.setText((String)o);
+                touchDownKeyLeft.setPosition(Constant.width/4,Constant.height-50, Align.center);
+
+                touchDownKeyRight.setText((String)o);
+                touchDownKeyRight.setPosition(Constant.width*3/4,Constant.height-50, Align.center);
             }
         }, new CallBack() {
             @Override
             public void callBack(Object o) {
-                touchDownKey.setText("");
+                touchDownKeyLeft.setText("");
+                touchDownKeyRight.setText("");
             }
         },new CallBack(){
             @Override
@@ -103,14 +108,23 @@ public class PianoView extends Group {
     }
 
     private void initLabel() {
-        touchDownKey = new Label("",new Label.LabelStyle(){
+        touchDownKeyLeft = new Label("",new Label.LabelStyle(){
             {
                 font = AssetLoadFile.getBR40();
             }
         });
-        addActor(touchDownKey);
-        touchDownKey.setAlignment(Align.center);
-        touchDownKey.setFontScale(5);
+        addActor(touchDownKeyLeft);
+        touchDownKeyLeft.setAlignment(Align.center);
+        touchDownKeyLeft.setFontScale(5);
+        touchDownKeyRight = new Label("",new Label.LabelStyle(){
+            {
+                font = AssetLoadFile.getBR40();
+            }
+        });
+        addActor(touchDownKeyRight);
+        touchDownKeyRight.setAlignment(Align.center);
+        touchDownKeyRight.setFontScale(5);
+
     }
 
     private Label touLabel;
@@ -122,7 +136,6 @@ public class PianoView extends Group {
     public void setTouchLabel(String txt){
         if (touLabel==null)return;
         builder.append(txt+" ");
-
         touLabel.setText(builder.toString());
     }
 

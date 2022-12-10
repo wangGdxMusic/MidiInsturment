@@ -49,6 +49,7 @@ public class MidiUtils {
         int length = sequence.getTracks().length;
         int index=0;
 
+
         for (Track track : sequence.getTracks()){
 
 //        for (Track track : sequence.getTracks()) {
@@ -86,11 +87,7 @@ public class MidiUtils {
                             if (buffer[key] != EMPTY) {
                                 long timestamp = buffer[key];
                                 buffer[key] = EMPTY;
-                                int vv = 0;
-                                if (length/2<index){
-                                    vv = 1;
-                                }
-                                Note note = new Note(key-21, timestamp, tick - timestamp,vv);
+                                Note note = new Note(key-21, timestamp, tick - timestamp,index);
                                 noteList.add(note);
                             } else {
                                 System.err.println("Invalid MIDI File! Note off when it isn't on.");
@@ -107,9 +104,10 @@ public class MidiUtils {
                     System.out.println(message);
                 }
             }
-            index ++;
             if (noteList.size()>0) {
                 channels.add(new Channel(noteList));
+
+                index ++;
             }
             trackNumber++;
         }
