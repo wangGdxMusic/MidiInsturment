@@ -16,6 +16,8 @@
  */
 package kw.mulitplay.game.midi.handler;
 
+import com.badlogic.gdx.utils.Array;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,11 +42,16 @@ public class MidiUtils {
     private static final int EMPTY = -1;
 
     public static Channel[] getChannels(Sequence sequence) {
-        Channel[] channels = new Channel[sequence.getTracks().length];
+        Array<Channel> channels = new Array();
         ArrayList<Note> noteList = new ArrayList<>();
 
         int trackNumber = 0;
-        for (Track track : sequence.getTracks()) {
+        int length = sequence.getTracks().length;
+        int index=0;
+
+        for (Track track : sequence.getTracks()){
+
+//        for (Track track : sequence.getTracks()) {
             noteList.clear();
             long[] buffer = new long[200];
             Arrays.fill(buffer, -1);
@@ -79,7 +86,11 @@ public class MidiUtils {
                             if (buffer[key] != EMPTY) {
                                 long timestamp = buffer[key];
                                 buffer[key] = EMPTY;
-                                Note note = new Note(key-21, timestamp, tick - timestamp);
+                                int vv = 0;
+                                if (length/2<index){
+                                    vv = 1;
+                                }
+                                Note note = new Note(key-21, timestamp, tick - timestamp,vv);
                                 noteList.add(note);
                             } else {
                                 System.err.println("Invalid MIDI File! Note off when it isn't on.");
@@ -96,12 +107,17 @@ public class MidiUtils {
                     System.out.println(message);
                 }
             }
-
-            channels[trackNumber] = new Channel(noteList);
+            index ++;
+            if (noteList.size()>0) {
+                channels.add(new Channel(noteList));
+            }
             trackNumber++;
         }
-
-        return channels;
+        Channel[] channels1 = new Channel[channels.size];
+        for (int i = 0; i < channels.size; i++) {
+            channels1[i] = channels.get(i);
+        }
+        return channels1;
     }
 
     public static Sheet getSheet(File source) throws InvalidMidiDataException, IOException {

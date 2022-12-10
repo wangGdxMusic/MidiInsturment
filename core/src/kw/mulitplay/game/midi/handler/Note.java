@@ -27,12 +27,18 @@ public class Note {
     private final int key;
     private final long timestamp;
     private final long length;
+    private int num;
     //1-88
     //22 - 110
-    Note(int key, long timestamp, long length) {
+    Note(int key, long timestamp, long length,int num) {
+        this.num = num;
         this.key = key;
         this.timestamp = timestamp;
         this.length = length;
+    }
+
+    public int getNum() {
+        return num;
     }
 
     public int getKey() {

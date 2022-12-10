@@ -51,6 +51,6 @@ public class Insturments extends BaseScreen {
 
     @Override
     protected void back() {
-
+        enterScreen(new SongListScreen());
     }
 }

@@ -139,11 +139,14 @@ public class PianoKey extends Group {
         imageDown.setVisible(false);
         imageUp.setVisible(true);
         if (mode != Constant.DOWN) {
-            pros = new Image(new Texture("main/white.png"));
+            pros = new Image(new NinePatch(
+                    Asset.getAsset().getTexture("main/float.png"),
+                    10,10,10,10
+            ));
             addActor(pros);
             pros.toBack();
             pros.setColor(moveColor);
-            pros.setSize(getWidth(), 1);
+            pros.setSize(getWidth(), 20);
             pros.setY(imageUp.getY(Align.top), Align.top);
             pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed, 0.2f)));
         }

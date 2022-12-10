@@ -14,6 +14,7 @@ import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.constant.LevelConfig;
 import kw.mulitplay.game.group.InsturmentItem;
 import kw.mulitplay.game.group.PianoView;
+import kw.mulitplay.game.group.PuziView;
 import kw.mulitplay.game.midi.gamemode.ModeController;
 import kw.mulitplay.game.midi.handler.Channel;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
@@ -45,6 +46,15 @@ public class DIMIDemoScreen extends BaseScreen {
         stage.addActor(view);
         try {
             Instrument[] instruments = MidiInstruments.getInstruments();
+            ScrollPane pane = new ScrollPane(new Table(){{
+                    for (Instrument instrument : instruments) {
+                        add(new InsturmentItem(instrument));
+                        row();
+                    }
+            }},new ScrollPane.ScrollPaneStyle());
+            stage.addActor(pane);
+            pane.setSize(Constant.width,Constant.height);
+
             if (Constant.instrument!=null) {
                 MidiInstruments.selectInstrument(Constant.instrument);
             }
@@ -65,16 +75,18 @@ public class DIMIDemoScreen extends BaseScreen {
         }
         for (Channel channel : channelArray) {
             for (Note note : channel.getNotes()) {
-                actorTimeLines.add(new ActorTimeLine(note,view,resolution));
+                actorTimeLines.add(new ActorTimeLine(note,view,resolution,note.getNum()));
             }
         }
-        ArrayList<String> strings = new ArrayList<>();
-        for (int i = 1; i <= 88; i++) {
-            strings.add(i+"");
+
+        Array<Note> array = new Array<>();
+        for (Channel channel : channelArray) {
+            for (Note note : channel.getNotes()) {
+                array.add(note);
+            }
         }
-        for (String s : view.getHashMap().keySet()) {
-            strings.remove(s+"");
-        }
+        PuziView view = new PuziView(actorTimeLines);
+        stage.addActor(view);
     }
 
 
