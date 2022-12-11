@@ -44,9 +44,6 @@ public class MidiUtils {
     public static Channel[] getChannels(Sequence sequence) {
         Array<Channel> channels = new Array();
         ArrayList<Note> noteList = new ArrayList<>();
-
-        int trackNumber = 0;
-        int length = sequence.getTracks().length;
         int index=0;
 
 
@@ -106,10 +103,8 @@ public class MidiUtils {
             }
             if (noteList.size()>0) {
                 channels.add(new Channel(noteList));
-
                 index ++;
             }
-            trackNumber++;
         }
         Channel[] channels1 = new Channel[channels.size];
         for (int i = 0; i < channels.size; i++) {
@@ -120,6 +115,9 @@ public class MidiUtils {
 
     public static Sheet getSheet(File source) throws InvalidMidiDataException, IOException {
         Sequence sequence = MidiSystem.getSequence(source);
+        long microsecondLength = sequence.getMicrosecondLength();
+        float bmp = (float) (60000000.0/microsecondLength);
+        System.out.println(bmp+" bmp ---------------------");
         float divisionType = sequence.getDivisionType();
         long length = sequence.getMicrosecondLength();
         int resolution;

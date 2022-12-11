@@ -53,7 +53,7 @@ public class DIMIDemoScreen extends BaseScreen {
                         row();
                     }
             }},new ScrollPane.ScrollPaneStyle());
-            stage.addActor(pane);
+//            stage.addActor(pane);
             pane.setSize(Constant.width,Constant.height);
 
             if (Constant.instrument!=null) {
@@ -74,9 +74,10 @@ public class DIMIDemoScreen extends BaseScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        int i = channelArray.size / 2;
         for (Channel channel : channelArray) {
             for (Note note : channel.getNotes()) {
-                actorTimeLines.add(new ActorTimeLine(note,view,resolution,note.getNum()));
+                actorTimeLines.add(new ActorTimeLine(note,view,resolution,note.getNum()>=i));
             }
         }
         actorTimeLines.sort(new Comparator<ActorTimeLine>() {

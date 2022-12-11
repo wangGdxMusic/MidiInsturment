@@ -16,9 +16,9 @@ public class ActorTimeLine {
     private int status;
     private PianoView view;
     private Image image;
-    private int up;
+    private boolean up;
 
-    public ActorTimeLine(Note note, PianoView view, int resolution,int up){
+    public ActorTimeLine(Note note, PianoView view, int resolution,boolean up){
         this.up = up;
         this.note = note;
         this.startTime = note.getTimeStamp() * 60.0f / resolution / 120.0f*2;
@@ -51,7 +51,7 @@ public class ActorTimeLine {
     }
 
     public boolean isUp(){
-        return up == 0;
+        return up;
     }
 
     public int getStatus() {

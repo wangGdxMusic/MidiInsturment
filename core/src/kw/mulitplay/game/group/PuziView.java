@@ -35,6 +35,7 @@ public class PuziView extends Group {
                 Image im = note.getImage();
                 if (note.isUp()) {
                     im.setY(50);
+
                 }else {
                     im.setY(-50);
                     im.setColor(Color.RED);
